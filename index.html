@@ -3,416 +3,587 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>happy birthday !</title>
-    <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            overflow-x: hidden;
-            background-color: #fff5f7;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ช่องทางการติดต่อ</title>
+
+    <script>
+        //   ส่วน title
+
+
+        const titleElement = document.querySelector('title');
+        const fullTitle = "ช่องทางการติดต่อ"; // ข้อความเต็มที่จะพิมพ์
+        let charIndex = 0;
+
+        function typeTitle() {
+            if (charIndex < fullTitle.length) {
+                titleElement.textContent = fullTitle.substring(0, charIndex + 1);
+                charIndex++;
+                // พิมพ์ตัวอักษรต่อไปทุกๆ 150 มิลลิวินาที (ปรับความเร็วได้)
+                setTimeout(typeTitle, 150);
+            } else {
+                // เมื่อพิมพ์ครบแล้ว ให้รอสักครู่แล้วเริ่มใหม่
+                setTimeout(() => {
+                    charIndex = 0;
+                    typeTitle();
+                }, 1500); // รอ 1.5 วินาทีก่อนเริ่มพิมพ์ใหม่
+            }
         }
-        /* หน้าปุ่มเริ่มต้น */
+
+        // เริ่มการพิมพ์เมื่อโหลดหน้าเว็บ
+        typeTitle();
+    </script>
+
+
+    <style>
+        /* สไตล์หน้าเริ่มต้น */
         
-        #start-screen {
-            background: linear-gradient(135deg, #ff9ecc 0%, #ffcce6 100%);
-            height: 100vh;
+        .entry-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: all 0.5s ease;
-            position: relative;
+            z-index: 99999;
+            transition: opacity 1s ease;
         }
         
-        #start-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .birthday-btn {
-            background: linear-gradient(45deg, #ff66b3 0%, #ff99cc 100%);
-            border: none;
+        .entry-screen h2 {
             color: white;
-            padding: 20px 40px;
-            font-size: 1.5em;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 102, 179, 0.3);
-            transition: all 0.3s ease;
-            font-family: 'Kanit', sans-serif;
-            z-index: 10;
-            border: 2px solid white;
-        }
-        
-        .birthday-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 102, 179, 0.4);
-            background: linear-gradient(45deg, #ff4da6 0%, #ff80bf 100%);
-        }
-        
-        .birthday-btn:active {
-            transform: translateY(0);
-        }
-        
-        h1 {
-            color: #d23369;
-            font-size: 3em;
+            font-size: 2em;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
         }
-        /* แมวน่ารัก */
         
-        .cat {
+        .entry-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ffffff, #94c7ea);
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .entry-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+        /* โทนสีดำและฟิมะตก */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Kanit', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* เอฟเฟกต์หิมะตก */
+        
+        .snowflake {
             position: absolute;
-            width: 150px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            filter: blur(1px);
+            animation: fall linear infinite;
+        }
+        /* เอฟเฟกต์ฝนตก */
+        
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+            pointer-events: none;
+            z-index: 99;
+            animation: rain-fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        @keyframes rain-fall {
+            to {
+                transform: translateY(100vh) translateX(50px);
+            }
+        }
+        /* วิดีโอพื้นหลัง */
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 100;
+        }
+        /* ปุ่มควบคุมเสียง */
+        
+        .volume-control {
+            position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 5;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 5px 10px rgba(210, 51, 105, 0.3));
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0) rotate(-5deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-        /* หน้าเซอร์ไพร์ส */
-        
-        #surprise-page {
-            background: linear-gradient(135deg, #ffb6d8 0%, #ffdfef 100%);
-            min-height: 100vh;
-            padding: 50px 20px;
-            display: none;
+        .volume-control i {
+            color: white;
+            font-size: 20px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 15px;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
         }
         
-        .message {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(255, 102, 179, 0.2);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-            border: 1px solid #ffccdd;
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
         }
         
-        .message.reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .message h2 {
-            color: #d23369;
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-        
-        .message p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #8a4a7a;
-        }
-        
-        .photo-frame {
-            width: 200px;
-            height: 200px;
+        .profile-pic {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin: 20px auto;
-            overflow: hidden;
-            border: 8px solid white;
-            box-shadow: 0 10px 25px rgba(210, 51, 105, 0.3);
-            background: #ffecf2;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 20px #feffff;
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            margin: 15px 0 10px;
+            background: linear-gradient(45deg, #ffffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0 15px;
+        }
+        
+        .tagline {
+            font-size: 1em;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+        
+        .social-links {
             display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
         
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .social-links a {
+            color: white;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            padding: 8px;
         }
         
-        .heart-float {
-            position: absolute;
-            font-size: 20px;
-            color: #ff66b3;
-            animation: float-heart 5s linear infinite;
-            opacity: 0;
-            z-index: 1;
+        .social-links a:hover {
+            color: #94c7ea;
+            transform: translateY(-3px);
         }
+        /* Spotify Player */
         
-        @keyframes float-heart {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .spotify-embed {
+        .spotify-section {
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 10px;
+            padding: 20px;
             margin: 40px auto;
-            max-width: 500px;
+            max-width: 800px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.773);
+        }
+        
+        .spotify-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .spotify-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .spotify-title {
+            font-size: 1.5em;
+            color: rgb(255, 255, 255);
+        }
+        
+        .spotify-player {
+            width: 100%;
+            height: 80px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(210, 51, 105, 0.3);
-            border: 2px solid white;
+        }
+        /* ส่วนเนื้อหา */
+        
+        .content-section {
+            background: rgba(18, 18, 18, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #333;
         }
         
-        .confetti {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background-color: #ff66b3;
-            opacity: 0;
-            z-index: 1000;
-            border-radius: 50%;
+        h2 {
+            color: #ffffff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+            font-size: 1.3em;
+        }
+        /* เอฟเฟกต์พิเศษ */
+        
+        .glow {
+            text-shadow: 0 0 10px rgb(255, 255, 255);
         }
         
-        footer {
-            margin-top: 50px;
-            color: #d23369;
-            font-size: 1.1em;
-        }
-        
-        .heart {
-            color: #ff4da6;
-            font-size: 1.5em;
-            animation: heartbeat 1.5s infinite;
-        }
-        
-        @keyframes heartbeat {
+        @keyframes float {
             0% {
-                transform: scale(1);
-            }
-            25% {
-                transform: scale(1.2);
+                transform: translateY(0px);
             }
             50% {
-                transform: scale(1);
-            }
-            75% {
-                transform: scale(1.2);
+                transform: translateY(-10px);
             }
             100% {
-                transform: scale(1);
+                transform: translateY(0px);
             }
         }
         
-        .ribbon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            overflow: hidden;
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Media Queries สำหรับอุปกรณ์ต่างๆ */
+        
+        @media only screen and (min-width: 768px) {
+            .entry-btn {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+            .profile-pic {
+                width: 150px;
+                height: 150px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .tagline {
+                font-size: 1.2em;
+            }
+            .social-links a {
+                font-size: 1.5em;
+            }
+            .spotify-section {
+                padding: 20px;
+            }
+            .spotify-logo {
+                width: 30px;
+                height: 30px;
+            }
+            .spotify-title {
+                font-size: 1.5em;
+            }
+            .content-section {
+                padding: 30px;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
         }
         
-        .ribbon span {
-            position: absolute;
-            display: block;
-            width: 225px;
-            padding: 15px 0;
-            background-color: #ff66b3;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            color: white;
-            font-size: 1.1em;
-            text-align: center;
-            right: -25px;
-            top: 30px;
-            transform: rotate(45deg);
-            border: 1px solid #ff4da6;
+        @media only screen and (max-width: 480px) {
+            .entry-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .tagline {
+                font-size: 0.9em;
+            }
+            .social-links {
+                gap: 10px;
+            }
+            .social-links a {
+                font-size: 1em;
+            }
+            .volume-control {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .volume-control i {
+                font-size: 18px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-    <!-- หน้าปุ่มเริ่มต้น -->
-    <div id="start-screen">
-        <div class="ribbon">
-
-        </div>
-        <h1> เธอๆเค้ามีอะไรจะให้💝</h1>
-        <button class="birthday-btn" id="surprise-btn">ลองกดดูจิ!</button>
-
-        <!-- แมวน่ารัก -->
-        <img src="imge/494687042_518865947826457_5574531761239282284_n.png" class="cat" alt="แมวน่ารัก">
+    <!-- หน้าเริ่มต้น -->
+    <div class="entry-screen" id="entryScreen">
+        <button class="entry-btn" id="entryBtn">Click to enter...</button>
     </div>
 
-    <!-- หน้าเซอร์ไพร์ส -->
-    <div id="surprise-page">
-        <div class="container">
-            <h1>สุขสันต์วันเกิดค้าบอ้วน! <span class="heart">❤</span></h1>
+    <!-- วิดีโอพื้นหลัง -->
+    <div class="video-background">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="imge/snaptik_7185834171913342235_hd.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
-            <!-- รูปคนรัก -->
-            <div class="photo-frame">
-                <img src="imge/494687042_518865947826457_5574531761239282284_n.png" alt="รูปคนรัก">
+    <!-- ปุ่มควบคุมเสียง -->
+    <!--div class="volume-control" id="volume-control">
+        <i class="fas fa-volume-mute"></i>
+    </div-->
+
+    <div class="container">
+        <header>
+            <img src="imge/494817226_738239295204096_2130286642437943323_n.jpg" alt="Profile Picture" class="profile-pic floating">
+            <h1 class="glow">Hi I'm Zero</h1>
+            <p class="tagline">Department of Digital Business Technology.</p>
+            <p class="tagline">DEV/UX/UI</p>
+
+            <div class="social-links">
+                <a href="https://web.facebook.com/ha.ji.545378?locale=th_TH"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/haji_18_06/"><i class="fab fa-instagram"></i></a>
+                <a href="https://discord.gg/jangwadcommunity"><i class="fab fa-discord"></i></a>
             </div>
 
-            <div class="message">
-                <h2>ถึงคนที่เค้ารักที่สุด...</h2>
-                <p>เค้าอยากบอกว่าเธอคือของขวัญที่ล้ำค่าที่สุดในชีวิตเค้าเลยอ้วน 💖</p>
+            <!-- เกี่ยวกับฉัน -->
+            <div class="content-section">
+                <h2>เกี่ยวกับตัวผม</h2>
+                <p>ชื่อ เป้ง อายุ19 อยู่แผนกคอมพิวเตอร์ธุรกิจดิจิทัล ขอบคุณที่กดเข้ามาส่อง...</p>
             </div>
 
-            <div class="message">
-                <h2>เพลงนี้เพื่อเธอเลยนะ</h2>
-                <p>เค้าเลือกเพลงนี้มาเฉพาะเพื่อเธอ หวังว่าเธอจะชอบนะอ้วน!</p>
-
-                <!-- Spotify Embed -->
-                <div class="spotify-embed">
-                    <iframe src="https://open.spotify.com/embed/track/1XhWSQcvmv2JKCCXkZeZyA?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <!-- ทักษะ -->
+            <div class="content-section">
+                <h2>Skills.</h2>
+                <p>I'm a Beginner Dev Html Css Js </p>
+            </div>
+            <!-- Spotify Player -->
+            <div class="spotify-section">
+                <div class="spotify-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png" alt="Spotify" class="spotify-logo">
+                    <h3 class="spotify-title">เพลงที่ผมชอบฟัง</h3>
                 </div>
+                <iframe src="https://open.spotify.com/embed/track/1XhWSQcvmv2JKCCXkZeZyA?utm_source=generator&theme=0" class="spotify-player" frameborder="100" allowtransparency="true" allow="encrypted-media"></iframe>
             </div>
-
-            <div class="message">
-                <h2>คำอวยพรจากใจเค้า</h2>
-                <p>ขอให้วันเกิดปีนี้เป็นจุดเริ่มต้นของความสุขทั้งปีของอ้วงขอให้สมหวังทุกอย่างที่ตั้งใจไว้ทุกอย่างนะค้าบคนเก่งของเค้า 💕</p>
-            </div>
-
-            <div class="message">
-                <h2>สุดท้ายนี้...</h2>
-                <p>เค้าอยากบอกว่าไม่ว่าจะผ่านไปกี่ปีเค้าจะอยู่ข้างๆเธอเสมอเค้ารักเธอที่สุดเลยนะ! <span class="heart">❤</span></p>
-            </div>
-
-            <footer>
-                <p>สร้างด้วยความรัก...จากใจเค้าเลย ❤️</p>
-            </footer>
-        </div>
     </div>
+    </header>
 
     <script>
-        // เปิดหน้าเซอร์ไพร์สเมื่อกดปุ่ม
-        document.getElementById('surprise-btn').addEventListener('click', function() {
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('surprise-page').style.display = 'block';
+        // ตัวแปรสำหรับหน้าเริ่มต้น
+        const entryScreen = document.getElementById('entryScreen');
+        const entryBtn = document.getElementById('entryBtn');
+        const video = document.getElementById('bg-video');
+        const volumeControl = document.getElementById('volume-control');
+        let isMuted = true;
 
-            // สร้างหัวใจลอย
-            createHearts(30);
+        // ฟังก์ชันสำหรับเข้าสู่เว็บไซต์
+        function enterWebsite() {
+            // ค่อยๆ จางหายไป
+            entryScreen.style.opacity = '0';
 
-            // สร้าง confetti
-            createConfetti();
+            // ลบหน้าเริ่มต้นหลังจากจบ animation
+            setTimeout(() => {
+                entryScreen.style.display = 'none';
 
-            // แสดงข้อความค่อยๆ หลังจากหน้ามา
-            setTimeout(revealMessages, 500);
+                // เล่นเสียงวิดีโอทันที
+                video.muted = false;
+                isMuted = false;
+                volumeControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+
+                // พยายามเล่นวิดีโออีกครั้ง
+                video.play().catch(e => console.log("Video play error:", e));
+
+                // เริ่มเอฟเฟกต์ฝนตก
+                startRainEffect();
+            }, 1000);
+        }
+
+        // เมื่อคลิกปุ่ม
+        entryBtn.addEventListener('click', enterWebsite);
+
+        // เมื่อกดปุ่ม Enter
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                enterWebsite();
+            }
         });
 
-        // สร้างหัวใจลอย
-        function createHearts(count) {
-            for (let i = 0; i < count; i++) {
+        // ควบคุมเสียงวิดีโอ
+        volumeControl.addEventListener('click', function() {
+            isMuted = !isMuted;
+            video.muted = isMuted;
+
+            if (isMuted) {
+                volumeControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                volumeControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        });
+
+        // ฟังก์ชันสร้างเอฟเฟกต์ฝนตก
+        function startRainEffect() {
+            function createRaindrop() {
+                const raindrop = document.createElement('div');
+                raindrop.className = 'raindrop';
+
+                // ความยาวของหยดน้ำ (สุ่มระหว่าง 20-50px)
+                const length = Math.random() * 30 + 20;
+                raindrop.style.height = `${length}px`;
+
+                // ตำแหน่งเริ่มต้นแบบสุ่มที่ด้านบน
+                raindrop.style.left = Math.random() * window.innerWidth + 'px';
+                raindrop.style.top = '-30px';
+
+                // ความเร็วการตกแบบสุ่ม (เร็วขึ้น)
+                const animationDuration = Math.random() * 0.5 + 0.3; // 0.3-0.8 วินาที
+                raindrop.style.animationDuration = `${animationDuration}s`;
+
+                // ความโปร่งใสแบบสุ่ม
+                const opacity = Math.random() * 0.6 + 0.4;
+                raindrop.style.opacity = opacity;
+
+                document.body.appendChild(raindrop);
+
+                // ลบออกหลังจากตกหมด
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart-float';
-                    heart.innerHTML = '❤';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                    document.body.appendChild(heart);
-
-                    // ลบหัวใจหลังจาก animation เสร็จ
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 5000);
-                }, i * 300);
-            }
-        }
-
-        // สร้าง confetti
-        function createConfetti() {
-            const colors = ['#ff66b3', '#ff99cc', '#ffccdd', '#ff4da6', '#ffb6d8'];
-
-            for (let i = 0; i < 150; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.top = -10 + 'px';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = Math.random() * 12 + 6 + 'px';
-                    confetti.style.height = Math.random() * 12 + 6 + 'px';
-                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    document.body.appendChild(confetti);
-
-                    animateConfetti(confetti);
-                }, i * 50);
-            }
-        }
-
-        // อนิเมชัน confetti
-        function animateConfetti(confetti) {
-            const duration = Math.random() * 3 + 2;
-            const angle = Math.random() * 360;
-            const distance = Math.random() * 100 + 50;
-
-            confetti.style.opacity = '1';
-
-            const startTime = Date.now();
-
-            function fall() {
-                const elapsed = (Date.now() - startTime) / 1000;
-                const progress = elapsed / duration;
-
-                if (progress > 1) {
-                    confetti.remove();
-                    return;
-                }
-
-                const x = distance * Math.cos(angle * Math.PI / 180) * progress;
-                const y = distance * Math.sin(angle * Math.PI / 180) * progress + (progress * progress * 100);
-
-                confetti.style.transform = `translate(${x}px, ${y}px) rotate(${progress * 360}deg)`;
-                confetti.style.opacity = 1 - progress;
-
-                requestAnimationFrame(fall);
+                    raindrop.remove();
+                }, animationDuration * 1000);
             }
 
-            fall();
+            // สร้างฝนจำนวนมากทันทีเมื่อเริ่ม
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createRaindrop, i * 50);
+            }
+
+            // สร้างฝนต่อเนื่องทุกๆ 50 มิลลิวินาที
+            setInterval(createRaindrop, 50);
+        }
+        /*
+                    // ฟังก์ชันสร้างเอฟเฟกต์หิมะตก
+                    function startSnowEffect() {
+                        function createSnowflake() {
+                            const snowflake = document.createElement('div');
+                            snowflake.className = 'snowflake';
+
+                            // ขนาดและความโปร่งใสแบบสุ่ม
+                            const size = Math.random() * 10 + 5;
+                            const opacity = Math.random() * 0.7 + 0.3;
+
+                            snowflake.style.width = `${size}px`;
+                            snowflake.style.height = `${size}px`;
+                            snowflake.style.opacity = opacity;
+
+                            // ตำแหน่งเริ่มต้นแบบสุ่มที่ด้านบน
+                            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+                            snowflake.style.top = '-20px';
+
+                            // ความเร็วการตกแบบสุ่ม
+                            const animationDuration = Math.random() * 5 + 3;
+                            snowflake.style.animationDuration = `${animationDuration}s`;
+
+                            // การแกว่งไปมาแบบสุ่ม
+                            const sway = Math.random() * 50 - 25;
+                            snowflake.style.transform = `translateX(${sway}px)`;
+
+                            document.body.appendChild(snowflake);
+
+                            // ลบออกหลังจากตกหมด
+                            setTimeout(() => {
+                                snowflake.remove();
+                            }, animationDuration * 1000);
+                        }
+
+                        // สร้างหิมะจำนวนมากทันทีเมื่อโหลดหน้าเว็บ
+                        for (let i = 0; i < 50; i++) {
+                            setTimeout(createSnowflake, i * 100);
+                        }
+
+                        // สร้างหิมะต่อเนื่อง
+                        setInterval(createSnowflake, 100);
+                    }*/
+
+        // เริ่มเอฟเฟกต์หิมะตกเมื่อโหลดหน้าเว็บ
+        window.addEventListener('load', startSnowEffect);
+
+        // ปรับขนาดฟอนต์สำหรับอุปกรณ์ขนาดเล็ก
+        function adjustFontSize() {
+            const width = window.innerWidth;
+            if (width < 480) {
+                document.documentElement.style.fontSize = '14px';
+            } else if (width < 768) {
+                document.documentElement.style.fontSize = '15px';
+            } else {
+                document.documentElement.style.fontSize = '16px';
+            }
+        }
+        // เพิ่ม Spotify 
+        function updateSpotifyPlayer(trackId) {
+            const iframe = document.querySelector('.spotify-player');
+            iframe.src = `https://open.spotify.com/embed/track/${trackId}`;
         }
 
-        // แสดงข้อความค่อยๆ เมื่อเลื่อน
-        function revealMessages() {
-            const messages = document.querySelectorAll('.message');
-
-            messages.forEach((message, index) => {
-                const messageTop = message.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-
-                if (messageTop < windowHeight - 100) {
-                    setTimeout(() => {
-                        message.classList.add('reveal');
-                    }, index * 300);
-                }
-            });
-        }
-
-        // ตรวจสอบเมื่อเลื่อน
-        window.addEventListener('scroll', revealMessages);
+        // เรียกฟังก์ชันเมื่อโหลดและเมื่อเปลี่ยนขนาดหน้าจอ
+        window.addEventListener('load', adjustFontSize);
+        window.addEventListener('resize', adjustFontSize);
     </script>
+    </div>
 </body>
 
 </html>
